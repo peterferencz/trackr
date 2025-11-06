@@ -1,0 +1,14 @@
+name: Run local script on pi
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run local script
+        run: /home/peter/websrv/scripts/gha_push_main.sh
