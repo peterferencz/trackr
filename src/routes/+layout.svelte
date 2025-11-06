@@ -2,11 +2,21 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/state';
 	import '$lib/assets/style.scss'
-	import LoginPage from '../components/LoginPage.svelte';
 	
 	let { children } = $props();
-	import { isLoggedIn, loggedInUser } from '$lib/LoginManager';
+	import { isLoggedIn } from '$lib/LoginManager';
 	import { fade } from 'svelte/transition';
+    import { goto } from '$app/navigation';
+    import { resolve } from '$app/paths';
+
+
+	$effect(() => {
+		if($isLoggedIn){
+			goto(resolve("/dashboard"));
+		}else{
+			goto(resolve("/login"));
+		}
+	})
 </script>
 
 <svelte:head>
@@ -17,12 +27,13 @@
 </svelte:head>
 
 {#if $isLoggedIn}
-{$loggedInUser?.name}
 <div id="navbar">
-	<a href="/dashboard" class:active={page.url.pathname == "/dashboard"}><span class="material-symbols-sharp">dashboard</span></a>
-	<a href="/journal" class:active={page.url.pathname == "/journal"}><span class="material-symbols-sharp">edit_note</span></a>
-	<a href="/search" class:active={page.url.pathname == "/search"}><span class="material-symbols-sharp">search</span></a>
+	<a href={resolve("/dashboard")} class:active={page.url.pathname == "/dashboard"}><span class="material-symbols-sharp">dashboard</span></a>
+	<a href={resolve("/journal")} class:active={page.url.pathname == "/journal"}><span class="material-symbols-sharp">edit_note</span></a>
+	<a href={resolve("/search")} class:active={page.url.pathname == "/search"}><span class="material-symbols-sharp">search</span></a>
 </div>
+{/if}
+
 <div id="content">
 	{#key page.url.pathname}
 		<div in:fade={{ duration: 150 }} out:fade={{ duration: 120 }}>
@@ -30,6 +41,3 @@
 		</div>
 	{/key}
 </div>
-{:else}
-	<LoginPage/>
-{/if}
