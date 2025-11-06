@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run local script
-        run: ./home/peter/websrv/scripts/gha_push_main.sh
+        run: /home/peter/websrv/scripts/gha_push_main.sh
