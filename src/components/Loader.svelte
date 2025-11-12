@@ -1,10 +1,5 @@
-<script>
-	// export let message = "Loading...";
-</script>
-
 <div class="loader">
 	<div class="spinner"></div>
-	<!-- <p>{message}</p> -->
 </div>
 
 <style lang="scss">
@@ -40,11 +35,5 @@
 		to {
 			transform: rotate(360deg);
 		}
-	}
-
-	p {
-		font-size: 1.1rem;
-		letter-spacing: 0.5px;
-		color: #6d6d6d;
 	}
 </style>
